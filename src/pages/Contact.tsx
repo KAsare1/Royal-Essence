@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Mail, Clock, Home, Phone } from 'lucide-react';
 
 const Contact = () => {
