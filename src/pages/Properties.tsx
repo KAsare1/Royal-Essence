@@ -1,6 +1,21 @@
+// Properties.tsx - Updated with booking modal
+import { useState } from 'react';
 import PropertyCard from '../components/PropertyCard';
+import BookingModal from './Booking';
+
+
+interface PropertyDetails {
+  name: string;
+  price: string;
+  type: string;
+  location: string;
+  sleeps: number;
+}
 
 const Properties = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState<PropertyDetails | null>(null);
+
   const properties = [
     {
       name: "The Suburban Nest",
@@ -74,6 +89,16 @@ const Properties = () => {
     }
   ];
 
+  const handleBookClick = (property: PropertyDetails) => {
+    setSelectedProperty(property);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProperty(null);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -92,7 +117,11 @@ const Properties = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {properties.map((property, index) => (
-              <PropertyCard key={index} {...property} />
+              <PropertyCard 
+                key={index} 
+                {...property} 
+                onBookClick={handleBookClick}
+              />
             ))}
           </div>
         </div>
@@ -110,6 +139,15 @@ const Properties = () => {
           </button>
         </div>
       </section>
+
+      {/* Booking Modal */}
+      {selectedProperty && (
+        <BookingModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          property={selectedProperty}
+        />
+      )}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface PropertyCardProps {
@@ -11,6 +10,13 @@ interface PropertyCardProps {
   amenities: string[];
   activities: string;
   imageUrl?: string;
+  onBookClick: (property: {
+    name: string;
+    price: string;
+    type: string;
+    location: string;
+    sleeps: number;
+  }) => void;
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -22,11 +28,17 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   description,
   amenities,
   activities,
-  imageUrl
+  imageUrl,
+  onBookClick
 }) => {
   const handleBookingClick = () => {
-    // Placeholder for booking calendar functionality
-    alert('Booking calendar coming soon!');
+    onBookClick({
+      name,
+      price,
+      type,
+      location,
+      sleeps
+    });
   };
 
   return (
